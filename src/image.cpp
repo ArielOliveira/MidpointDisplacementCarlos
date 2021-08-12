@@ -1,4 +1,4 @@
-#include "image.hpp"
+#include "../include/image.hpp"
 
 Image::Image() : sizeX(DEFAULT_RES_X), sizeY(DEFAULT_RES_Y) {  
     InitializeImage();
@@ -7,7 +7,6 @@ Image::Image() : sizeX(DEFAULT_RES_X), sizeY(DEFAULT_RES_Y) {
 Image::Image(const int& _sizeX, const int& _sizeY)  : sizeX(_sizeX), sizeY(_sizeY) {
     InitializeImage();
 }
-
 
 Image::Image(Pixel** _image, const int& _sizeX, const int& _sizeY) : 
     sizeX(_sizeX),
