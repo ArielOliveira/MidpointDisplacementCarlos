@@ -15,11 +15,19 @@ Image::Image(Pixel** _image, const int& _sizeX, const int& _sizeY) :
         
 }
 
-const int& Image::GetSizeX() const { return sizeX; }
-const int& Image::GetSizeY() const { return sizeY; }
+Image::~Image() {
+    for (int i = 0; i < sizeY; i++)
+        delete[] image[sizeY];
+
+    delete[] image;
+    image = nullptr;
+}
 
 void Image::SetSizeX(const int& sizeX) { this->sizeX = sizeX; }
+const int& Image::GetSizeX() const { return sizeX; }
+
 void Image::SetSizeY(const int& sizeY) { this->sizeY = sizeY; }
+const int& Image::GetSizeY() const { return sizeY; }
 
 void Image::SetValue(const int& x, const int& y, const Pixel& value) { 
     if (x < 0 || x > sizeX-1 || y < 0 || y > sizeY-1)
@@ -40,4 +48,27 @@ void Image::InitializeImage() {
 
     for (int i = 0; i < sizeY; i++)
         image[i] = new Pixel[sizeX];
+
+    for (int i = 0; i < sizeY; i++)
+        for (int j = 0; j < sizeX; j++)
+            image[i][j] = {255, 0, 0};
+}
+
+const string Image::toString() const {
+    string s;
+
+    for (int i = 0; i < sizeY; i++) {
+        for (int j = 0; j < sizeX; j++) {
+             s.append(image[i][j].toString());
+             s.push_back('\n');
+        }
+    }
+
+    return s;
+}
+        
+ostream& operator<<(ostream& out, const Image& image) {
+    out << image.toString();
+
+    return out;
 }
